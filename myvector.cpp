@@ -15,6 +15,8 @@ private:
 
     T *data;
 
+    void resize(size_t new_size);
+
 public:
     // constructors
     myvector() : reserved_size(default_vector_size), size(0), data(new T[default_vector_size]) {}
@@ -31,10 +33,6 @@ public:
     T *getData() const;
 
     void push_back(const T &x);
-
-    void resize(size_t new_size);
-
-
 };
 
 template<typename T>

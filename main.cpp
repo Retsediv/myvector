@@ -4,7 +4,6 @@
 
 int main() {
     myvector<int> v;
-    std::vector<int> orig;
 
     for (int i = 0; i < 10; ++i) {
         v.push_back(i);
@@ -23,6 +22,10 @@ int main() {
     for (int i = 0; i < v2.getSize(); ++i) {
         cout << v2[i] << endl;
     }
+
+    cout << v2.pop() << endl;
+    cout << v2.getReserved_size() << endl;
+    cout << v2.getSize() << endl;
 
     return 0;
 }

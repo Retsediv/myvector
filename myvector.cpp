@@ -20,9 +20,12 @@ private:
 public:
     // constructors
     myvector() : reserved_size(default_vector_size), size(0), data(new T[default_vector_size]) {}
-
     myvector(size_t n) : reserved_size(n), size(0), data(new T[n]) {}
-
+    myvector(size_t n, T init_value) : reserved_size(n+default_vector_size), size(n), data(new T[n]) {
+        for (size_t i = 0; i < n; ++i) {
+            data[i] = init_value;
+        }
+    }
     myvector(const myvector<T> &v) : reserved_size(v.getReserved_size()), size(v.getSize()), data(new T[v.getReserved_size()]) {
         for (size_t i = 0; i < v.getSize(); ++i) {
             data[i] = v.at(i);

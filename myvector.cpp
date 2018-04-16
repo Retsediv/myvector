@@ -26,13 +26,21 @@ public:
     // destructor
     ~myvector() { delete[] data; }
 
+    // getters
     size_t getSize() const;
 
     size_t getReserved_size() const;
 
     T *getData() const;
 
+    // methods
     void push_back(const T &x);
+
+    T at(size_t index);
+
+    // operations
+    T& operator[](size_t index);
+
 };
 
 template<typename T>
@@ -64,7 +72,7 @@ void myvector<T>::push_back(const T &x) {
 template<typename T>
 void myvector<T>::resize(size_t new_size) {
     if (new_size > reserved_size) {
-        T* new_data = new T[new_size];
+        T *new_data = new T[new_size];
 
         for (int i = 0; i < size; ++i) {
             new_data[i] = data[i];
@@ -75,4 +83,19 @@ void myvector<T>::resize(size_t new_size) {
 
         reserved_size = new_size;
     }
+}
+
+template<typename T>
+T &myvector<T>::operator[](size_t index) {
+    return data[index];
+}
+
+template<typename T>
+T myvector<T>::at(size_t index) {
+    if(index >= 0 && index <= size){
+        return data[index];
+    }
+
+    // TODO: make own exception
+    throw std::out_of_range("Invalid index for array");
 }

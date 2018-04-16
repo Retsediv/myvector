@@ -1,16 +1,24 @@
 #include <iostream>
+#include <vector>
 #include "myvector.cpp"
 
 int main() {
     myvector<int> v;
+    std::vector<int> orig;
 
-    v.push_back(1);
-    v.push_back(2);
-    v.push_back(3);
-    v.push_back(4);
-    v.push_back(5);
-    v.push_back(6);
-    v.push_back(7);
+    for (int i = 0; i < 10; ++i) {
+        v.push_back(i);
+    }
+
+    v[0] = 12;
+    v[1] = 144;
+    v[2] = 13;
+    v[3] = 169;
+    v[100] = 12;
+
+    for (int i = 0; i < 10; ++i) {
+        cout << v[i] << endl;
+    }
 
     return 0;
 }

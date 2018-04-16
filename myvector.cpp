@@ -38,7 +38,7 @@ public:
 
     T at(size_t index);
 
-    // operations
+    // operators
     T& operator[](size_t index);
 
 };

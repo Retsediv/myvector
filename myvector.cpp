@@ -3,10 +3,6 @@
 
 const size_t default_vector_size = 4;
 
-using std::cout;
-using std::endl;
-using std::copy;
-
 template<typename T>
 class myvector {
 private:
@@ -18,15 +14,21 @@ private:
     void resize(size_t new_size);
 
 public:
+    typedef T *iterator;
+
     // constructors
     myvector() : reserved_size(default_vector_size), size(0), data(new T[default_vector_size]) {}
+
     myvector(size_t n) : reserved_size(n), size(0), data(new T[n]) {}
-    myvector(size_t n, T init_value) : reserved_size(n+default_vector_size), size(n), data(new T[n]) {
+
+    myvector(size_t n, T init_value) : reserved_size(n + default_vector_size), size(n), data(new T[n]) {
         for (size_t i = 0; i < n; ++i) {
             data[i] = init_value;
         }
     }
-    myvector(const myvector<T> &v) : reserved_size(v.getReserved_size()), size(v.getSize()), data(new T[v.getReserved_size()]) {
+
+    myvector(const myvector<T> &v) : reserved_size(v.getReserved_size()), size(v.getSize()),
+                                     data(new T[v.getReserved_size()]) {
         for (size_t i = 0; i < v.getSize(); ++i) {
             data[i] = v.at(i);
         }
@@ -37,20 +39,30 @@ public:
 
     // getters
     size_t getSize() const;
+
     size_t getReserved_size() const;
+
     T *getData() const;
 
     // methods
     void push_back(const T &x);
-    T at(size_t index) const;
+
     void pop();
-    T front();
+
+    T &front();
+
+    T &at(size_t index) const;
+
+    iterator begin();
+
+    iterator end();
 
     bool empty();
+
     void clear();
 
     // operators
-    T& operator[](size_t index);
+    T &operator[](size_t index);
 
 };
 
@@ -102,8 +114,8 @@ T &myvector<T>::operator[](size_t index) {
 }
 
 template<typename T>
-T myvector<T>::at(size_t index) const {
-    if(index >= 0 && index <= size){
+T &myvector<T>::at(size_t index) const {
+    if (index >= 0 && index <= size) {
         return data[index];
     }
 
@@ -112,9 +124,9 @@ T myvector<T>::at(size_t index) const {
 }
 
 template<typename T>
-T myvector<T>::front() {
-    if(!empty()){
-        return data[size-1];
+T &myvector<T>::front() {
+    if (!empty()) {
+        return data[size - 1];
     }
 
     // TODO: make own exception and refactor it
@@ -148,4 +160,14 @@ void myvector<T>::clear() {
 template<typename T>
 bool myvector<T>::empty() {
     return size == 0;
+}
+
+template<typename T>
+typename myvector<T>::iterator myvector<T>::begin() {
+    return data;
+}
+
+template<typename T>
+typename myvector<T>::iterator myvector<T>::end() {
+    return data + size;
 }

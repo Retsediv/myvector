@@ -2,6 +2,10 @@
 #include <vector>
 #include "myvector.cpp"
 
+using std::cout;
+using std::endl;
+using std::copy;
+
 int main() {
     myvector<int> v;
 
@@ -28,11 +32,22 @@ int main() {
     cout << v2.getReserved_size() << endl;
     cout << v2.getSize() << endl;
 
-    v2.clear();
+    cout << "START ITERATOR!!!" << endl;
+    myvector<int>::iterator it;
+    for(it = v2.begin(); it != v2.end(); it++)    {
+        cout<< *it << endl;
+    }
 
+    cout << "START FOREACH!!!" << endl;
+    for(auto x: v2){
+        cout << x << endl;
+    }
+
+
+    cout << "CLEAR" << endl;
+    v2.clear();
     cout << v2.getReserved_size() << endl;
     cout << v2.getSize() << endl;
-
 
     return 0;
 }

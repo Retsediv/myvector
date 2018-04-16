@@ -23,6 +23,12 @@ public:
 
     myvector(size_t n) : reserved_size(n), size(0), data(new T[n]) {}
 
+    myvector(const myvector<T> &v) : reserved_size(v.getReserved_size()), size(v.getSize()), data(new T[v.getReserved_size()]) {
+        for (size_t i = 0; i < v.getSize(); ++i) {
+            data[i] = v.at(i);
+        }
+    }
+
     // destructor
     ~myvector() { delete[] data; }
 
@@ -36,7 +42,9 @@ public:
     // methods
     void push_back(const T &x);
 
-    T at(size_t index);
+    T at(size_t index) const;
+
+    T pop();
 
     // operators
     T& operator[](size_t index);
@@ -91,11 +99,16 @@ T &myvector<T>::operator[](size_t index) {
 }
 
 template<typename T>
-T myvector<T>::at(size_t index) {
+T myvector<T>::at(size_t index) const {
     if(index >= 0 && index <= size){
         return data[index];
     }
 
     // TODO: make own exception
     throw std::out_of_range("Invalid index for array");
+}
+
+template<typename T>
+T myvector<T>::pop() {
+    return data[--size];
 }

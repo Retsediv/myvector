@@ -23,9 +23,16 @@ int main() {
         cout << v2[i] << endl;
     }
 
-    cout << v2.pop() << endl;
+    cout << v2.front() << endl;
+    v2.pop();
     cout << v2.getReserved_size() << endl;
     cout << v2.getSize() << endl;
+
+    v2.clear();
+
+    cout << v2.getReserved_size() << endl;
+    cout << v2.getSize() << endl;
+
 
     return 0;
 }

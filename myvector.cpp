@@ -37,17 +37,17 @@ public:
 
     // getters
     size_t getSize() const;
-
     size_t getReserved_size() const;
-
     T *getData() const;
 
     // methods
     void push_back(const T &x);
-
     T at(size_t index) const;
+    void pop();
+    T front();
 
-    T pop();
+    bool empty();
+    void clear();
 
     // operators
     T& operator[](size_t index);
@@ -112,6 +112,40 @@ T myvector<T>::at(size_t index) const {
 }
 
 template<typename T>
-T myvector<T>::pop() {
-    return data[--size];
+T myvector<T>::front() {
+    if(!empty()){
+        return data[size-1];
+    }
+
+    // TODO: make own exception and refactor it
+    throw std::out_of_range("No items for front()");
+}
+
+template<typename T>
+void myvector<T>::pop() {
+    if (!empty()) {
+        // Call the destructor of last element
+        (data[size - 1]).~T();
+
+        --size;
+    }
+}
+
+template<typename T>
+void myvector<T>::clear() {
+    if (!empty()) {
+        // use pop to call destructors of all objects
+        size_t n = size;
+        for (int i = 0; i < n; ++i) {
+            pop();
+        }
+
+        reserved_size = default_vector_size;
+        data = new T[reserved_size];
+    }
+}
+
+template<typename T>
+bool myvector<T>::empty() {
+    return size == 0;
 }

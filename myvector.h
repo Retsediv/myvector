@@ -6,9 +6,8 @@ const size_t default_vector_size = 4;
 template<typename T>
 class myvector {
 private:
-    size_t size;
     size_t reserved_size;
-
+    size_t size;
     T *data;
 
     void resize(size_t new_size);
@@ -19,7 +18,7 @@ public:
     // constructors
     myvector() : reserved_size(default_vector_size), size(0), data(new T[default_vector_size]) {}
 
-    myvector(size_t n) : reserved_size(n), size(0), data(new T[n]) {}
+    explicit myvector(size_t n) : reserved_size(n), size(0), data(new T[n]) {}
 
     myvector(size_t n, T init_value) : reserved_size(n + default_vector_size), size(n), data(new T[n]) {
         for (size_t i = 0; i < n; ++i) {
@@ -97,7 +96,7 @@ void myvector<T>::resize(size_t new_size) {
     if (new_size > reserved_size) {
         T *new_data = new T[new_size];
 
-        for (int i = 0; i < size; ++i) {
+        for (size_t i = 0; i < size; ++i) {
             new_data[i] = data[i];
         }
 
@@ -148,7 +147,7 @@ void myvector<T>::clear() {
     if (!empty()) {
         // use pop to call destructors of all objects
         size_t n = size;
-        for (int i = 0; i < n; ++i) {
+        for (size_t i = 0; i < n; ++i) {
             pop();
         }
 

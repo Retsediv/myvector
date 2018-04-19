@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "myvector.cpp"
+#include "myvector.h"
 
 using std::cout;
 using std::endl;
@@ -23,7 +23,7 @@ int main() {
     cout << v2.getReserved_size() << endl;
     cout << v2.getSize() << endl;
 
-    for (int i = 0; i < v2.getSize(); ++i) {
+    for (size_t i = 0; i < v2.getSize(); ++i) {
         cout << v2[i] << endl;
     }
 

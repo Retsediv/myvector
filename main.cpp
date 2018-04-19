@@ -5,8 +5,12 @@
 using std::cout;
 using std::endl;
 using std::copy;
+using std::vector;
 
 int main() {
+    vector<int> i;
+    i.~vector();
+    return 0;
     myvector<int> v;
 
     for (int i = 0; i < 10; ++i) {

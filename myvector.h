@@ -48,15 +48,15 @@ public:
 
     void pop();
 
-    T &front();
+    T &front() const;
 
-    T &at(size_t index) const;
+    const T &at(size_t index) const;
 
     iterator begin();
 
     iterator end();
 
-    bool empty();
+    bool empty() const;
 
     void clear();
 
@@ -113,8 +113,8 @@ T &myvector<T>::operator[](size_t index) {
 }
 
 template<typename T>
-T &myvector<T>::at(size_t index) const {
-    if (index >= 0 && index <= size) {
+const T &myvector<T>::at(size_t index) const {
+    if (index >= 0 && index < size) {
         return data[index];
     }
 
@@ -123,7 +123,7 @@ T &myvector<T>::at(size_t index) const {
 }
 
 template<typename T>
-T &myvector<T>::front() {
+T &myvector<T>::front() const {
     if (!empty()) {
         return data[size - 1];
     }
@@ -136,7 +136,7 @@ template<typename T>
 void myvector<T>::pop() {
     if (!empty()) {
         // Call the destructor of last element
-        (data[size - 1]).~T();
+//        (data[size - 1]).~T();
 
         --size;
     }
@@ -157,7 +157,7 @@ void myvector<T>::clear() {
 }
 
 template<typename T>
-bool myvector<T>::empty() {
+bool myvector<T>::empty() const {
     return size == 0;
 }
 

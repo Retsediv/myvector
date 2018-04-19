@@ -113,17 +113,151 @@ TEST_F(MyvectorTest, popAndFront) {
     mv1.push_back(v2);
     mv1.push_back(v3);
 
-//    EXPECT_EQ(v3, mv1.front());
-//    mv1.pop();
-//    EXPECT_EQ(2, mv1.getSize());
-//    EXPECT_EQ(v2, mv1.front());
-//    mv1.pop();
-//    EXPECT_EQ(v1, mv1.front());
-//    EXPECT_EQ(1, mv1.getSize());
-//    mv1.pop();
-//    EXPECT_EQ(0, mv1.getSize());
-
-
+    EXPECT_EQ(v3, mv1.front());
+    mv1.pop();
+    EXPECT_EQ(2, mv1.getSize());
+    EXPECT_EQ(v2, mv1.front());
+    mv1.pop();
+    EXPECT_EQ(v1, mv1.front());
+    EXPECT_EQ(1, mv1.getSize());
+    mv1.pop();
+    EXPECT_EQ(0, mv1.getSize());
 }
 
+TEST_F(MyvectorTest, clear) {
+    // simple case
+    myvector<int> mv{};
 
+    mv.push_back(1);
+    mv.push_back(9999);
+    mv.push_back(-123);
+
+    mv.clear();
+
+    EXPECT_EQ(0, mv.getSize());
+
+    // with STL container
+    myvector<vector<int>> mv1{};
+
+    vector<int> v1{};
+    vector<int> v2{10};
+    vector<int> v3{100, -1};
+
+    mv1.push_back(v1);
+    mv1.push_back(v2);
+    mv1.push_back(v3);
+
+    mv1.clear();
+
+    EXPECT_EQ(0, mv.getSize());
+}
+
+TEST_F(MyvectorTest, empty) {
+    myvector<int> mv{};
+
+    EXPECT_TRUE(mv.empty());
+
+    mv.push_back(1);
+    EXPECT_FALSE(mv.empty());
+
+    mv.push_back(9999);
+    EXPECT_FALSE(mv.empty());
+
+    mv.push_back(-123);
+    EXPECT_FALSE(mv.empty());
+
+    mv.clear();
+    EXPECT_TRUE(mv.empty());
+}
+
+TEST_F(MyvectorTest, getElementByAt) {
+    myvector<int> mv{};
+
+    mv.push_back(1);
+    mv.push_back(9999);
+    mv.push_back(-123);
+
+    EXPECT_EQ(1, mv.at(0));
+    EXPECT_EQ(9999, mv.at(1));
+    EXPECT_EQ(-123, mv.at(2));
+
+    EXPECT_ANY_THROW(mv.at(3));
+    EXPECT_ANY_THROW(mv.at(4));
+    EXPECT_ANY_THROW(mv.at(-1));
+}
+
+TEST_F(MyvectorTest, iterator) {
+    myvector<int> mv{};
+
+    mv.push_back(1);
+    mv.push_back(9999);
+    mv.push_back(-123);
+
+    int index = 0;
+    for(auto x: mv){
+        EXPECT_EQ(mv.at(index), x);
+        ++index;
+    }
+
+    // with STL container
+    myvector<vector<int>> mv1{};
+
+    vector<int> v{};
+    vector<int> v1{};
+    v1.push_back(1);
+    vector<int> v2{};
+    v2.push_back(1);
+    v2.push_back(1);
+    vector<int> v3{};
+    v3.push_back(1);
+    v3.push_back(1);
+    v3.push_back(1);
+
+    mv1.push_back(v);
+    mv1.push_back(v1);
+    mv1.push_back(v2);
+    mv1.push_back(v3);
+
+    index = 0;
+    for(auto x: mv1){
+        EXPECT_EQ(mv1.at(index), x);
+        EXPECT_EQ(mv1.at(index).size(), index);
+        ++index;
+    }
+}
+
+TEST_F(MyvectorTest, bracketsOperator) {
+    myvector<int> mv{};
+
+    mv.push_back(1);
+    mv.push_back(9999);
+    mv.push_back(-123);
+
+    for (int i = 0; i < 3; ++i) {
+        EXPECT_EQ(mv.at(i), mv[i]);
+    }
+
+    mv[0] = 90;
+    mv[1] = -10;
+    mv[2] = 1;
+
+    EXPECT_EQ(90, mv[0]);
+    EXPECT_EQ(-10, mv[1]);
+    EXPECT_EQ(1, mv[2]);
+}
+
+TEST_F(MyvectorTest, createFromAnotherMyvector) {
+    myvector<int> mv{};
+
+    mv.push_back(1);
+    mv.push_back(9999);
+    mv.push_back(-123);
+
+    myvector<int> mv1{mv};
+
+    EXPECT_EQ(mv.getSize(), mv1.getSize());
+
+    for (int i = 0; i < 3; ++i) {
+        EXPECT_EQ(mv[i], mv1[i]);
+    }
+}

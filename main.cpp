@@ -8,9 +8,25 @@ using std::copy;
 using std::vector;
 
 int main() {
-    vector<int> i;
-    i.~vector();
-    return 0;
+//    vector<vector<int>> i;
+//    vector<int> a{1};
+//    vector<int> a1{100, 4};
+//    vector<int> a2{};
+//    a2.push_back(1);
+//    a2.push_back(1);
+//    a2.push_back(1);
+//    a2.push_back(1);
+//
+//    i.push_back(a);
+//    i.push_back(a1);
+//    i.push_back(a2);
+//
+//    i.pop_back();
+//    cout << i.size() << endl;
+//    cout << i[2].size() << endl;
+
+    vector<int> a;
+
     myvector<int> v;
 
     for (int i = 0; i < 10; ++i) {

@@ -1,4 +1,3 @@
-
 #include "gtest/gtest.h"
 #include "../../myvector.h"
 
@@ -56,7 +55,7 @@ TEST_F(MyvectorTest, fillWithInitialValueAfterCreate) {
     }
 }
 
-TEST_F(MyvectorTest, simplePushBack) {
+TEST_F(MyvectorTest, pushBackSimple) {
     myvector<int> mv{};
 
     mv.push_back(1);
@@ -86,7 +85,7 @@ TEST_F(MyvectorTest, pushBackWithSTLContainer) {
     EXPECT_EQ(3, mv.getSize());
 }
 
-TEST_F(MyvectorTest, popAndFront) {
+TEST_F(MyvectorTest, popAndFrontSimple) {
     // simple case
     myvector<int> mv{};
     int i1 = 1;
@@ -101,7 +100,9 @@ TEST_F(MyvectorTest, popAndFront) {
     EXPECT_EQ(i1, mv.front());
     mv.pop();
     EXPECT_EQ(0, mv.getSize());
+}
 
+TEST_F(MyvectorTest, popAndFrontWithContainer) {
     // with STL container
     myvector<vector<int>> mv1{};
 
@@ -124,7 +125,7 @@ TEST_F(MyvectorTest, popAndFront) {
     EXPECT_EQ(0, mv1.getSize());
 }
 
-TEST_F(MyvectorTest, clear) {
+TEST_F(MyvectorTest, clearSimple) {
     // simple case
     myvector<int> mv{};
 
@@ -135,7 +136,9 @@ TEST_F(MyvectorTest, clear) {
     mv.clear();
 
     EXPECT_EQ(0, mv.getSize());
+}
 
+TEST_F(MyvectorTest, clearWithContainer) {
     // with STL container
     myvector<vector<int>> mv1{};
 
@@ -149,7 +152,7 @@ TEST_F(MyvectorTest, clear) {
 
     mv1.clear();
 
-    EXPECT_EQ(0, mv.getSize());
+    EXPECT_EQ(0, mv1.getSize());
 }
 
 TEST_F(MyvectorTest, empty) {
@@ -186,7 +189,7 @@ TEST_F(MyvectorTest, getElementByAt) {
     EXPECT_ANY_THROW(mv.at(-1));
 }
 
-TEST_F(MyvectorTest, iterator) {
+TEST_F(MyvectorTest, iteratorSimple) {
     myvector<int> mv{};
 
     mv.push_back(1);
@@ -198,7 +201,9 @@ TEST_F(MyvectorTest, iterator) {
         EXPECT_EQ(mv.at(index), x);
         ++index;
     }
+}
 
+TEST_F(MyvectorTest, iteratorWithContainer) {
     // with STL container
     myvector<vector<int>> mv1{};
 
@@ -218,7 +223,7 @@ TEST_F(MyvectorTest, iterator) {
     mv1.push_back(v2);
     mv1.push_back(v3);
 
-    index = 0;
+    int index = 0;
     for(auto x: mv1){
         EXPECT_EQ(mv1.at(index), x);
         EXPECT_EQ(mv1.at(index).size(), index);

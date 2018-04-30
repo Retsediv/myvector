@@ -21,4 +21,4 @@ target_link_libraries(runAllTests gtest gtest_main ${CMAKE_THREAD_LIBS_INIT})
 #-----------------
 # Main user program
 #-----------------
-add_executable(myvector main.cpp myvector.h)
+add_executable(myvector main.cpp myvector.hpp)

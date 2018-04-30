@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "../../myvector.h"
+#include "../../myvector.hpp"
 
 using std::vector;
 

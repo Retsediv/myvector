@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "myvector.h"
+#include "myvector.hpp"
 
 using std::cout;
 using std::endl;

@@ -95,10 +95,10 @@ TEST_F(MyvectorTest, popAndFrontSimple) {
     mv.push_back(i2);
 
     EXPECT_EQ(i2, mv.front());
-    mv.pop();
+    mv.pop_back();
     EXPECT_EQ(1, mv.getSize());
     EXPECT_EQ(i1, mv.front());
-    mv.pop();
+    mv.pop_back();
     EXPECT_EQ(0, mv.getSize());
 }
 
@@ -115,13 +115,13 @@ TEST_F(MyvectorTest, popAndFrontWithContainer) {
     mv1.push_back(v3);
 
     EXPECT_EQ(v3, mv1.front());
-    mv1.pop();
+    mv1.pop_back();
     EXPECT_EQ(2, mv1.getSize());
     EXPECT_EQ(v2, mv1.front());
-    mv1.pop();
+    mv1.pop_back();
     EXPECT_EQ(v1, mv1.front());
     EXPECT_EQ(1, mv1.getSize());
-    mv1.pop();
+    mv1.pop_back();
     EXPECT_EQ(0, mv1.getSize());
 }
 

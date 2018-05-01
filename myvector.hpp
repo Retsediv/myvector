@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <iostream>
+#include "exceptions.h"
 
 const size_t default_vector_size = 4;
 
@@ -9,8 +10,6 @@ private:
     size_t reserved_size;
     size_t size;
     T *data;
-
-    void resize(size_t new_size);
 
 public:
     typedef T *iterator;
@@ -37,48 +36,34 @@ public:
     ~myvector() { delete[] data; }
 
     // getters
-    size_t getSize() const;
+    inline size_t getSize() const { return size; };
 
-    size_t getReserved_size() const;
+    inline size_t getReserved_size() const { return reserved_size; };
 
-    T *getData() const;
+    inline T *getData() const { return data;};
 
     // methods
     void push_back(const T &x);
 
-    void pop();
+    void pop_back();
 
     T &front() const;
 
     const T &at(size_t index) const;
-
-    iterator begin();
-
-    iterator end();
-
+    T &at(size_t index);
     bool empty() const;
 
     void clear();
 
     // operators
     T &operator[](size_t index);
+    const T &operator[](size_t index) const;
 
+    void resize(size_t new_size);
+
+    iterator begin();
+    iterator end();
 };
-
-template<typename T>
-size_t myvector<T>::getSize() const {
-    return size;
-}
-
-template<typename T>
-size_t myvector<T>::getReserved_size() const {
-    return reserved_size;
-}
-
-template<typename T>
-T *myvector<T>::getData() const {
-    return data;
-}
 
 template<typename T>
 void myvector<T>::push_back(const T &x) {
@@ -113,13 +98,26 @@ T &myvector<T>::operator[](size_t index) {
 }
 
 template<typename T>
+const T &myvector<T>::operator[](size_t index) const {
+    return data[index];
+}
+
+template<typename T>
+T &myvector<T>::at(size_t index) {
+    if (index < size) {
+        return data[index];
+    }
+
+    throw OutOfBoundException();
+}
+
+template<typename T>
 const T &myvector<T>::at(size_t index) const {
     if (index >= 0 && index < size) {
         return data[index];
     }
 
-    // TODO: make own exception
-    throw std::out_of_range("Invalid index for array");
+    throw OutOfBoundException();
 }
 
 template<typename T>
@@ -128,29 +126,30 @@ T &myvector<T>::front() const {
         return data[size - 1];
     }
 
-    // TODO: make own exception and refactor it
-    throw std::out_of_range("No items for front()");
+    throw IsEmptyException();
 }
 
 template<typename T>
-void myvector<T>::pop() {
-    if (!empty()) {
-        // Call the destructor of last element
-//        (data[size - 1]).~T();
-
-        --size;
+void myvector<T>::pop_back(){
+    if (empty()) {
+        throw IsEmptyException();
     }
+
+    // TODO: Call the destructor of last element
+    // (data[size - 1]).~T();
+
+    --size;
 }
 
 template<typename T>
 void myvector<T>::clear() {
     if (!empty()) {
-        // use pop to call destructors of all objects
-        size_t n = size;
-        for (size_t i = 0; i < n; ++i) {
-            pop();
-        }
+        // TODO: use pop to call destructors of all objects
+//        for (size_t i = 0; i < size; ++i) {
+//            pop();
+//        }
 
+        size = 0;
         reserved_size = default_vector_size;
         data = new T[reserved_size];
     }

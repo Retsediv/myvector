@@ -61,8 +61,8 @@ public:
 
     void resize(size_t new_size);
 
-    iterator begin() { return data; };
-    iterator end() { return data + size; };
+    iterator begin();
+    iterator end();
 };
 
 template<typename T>

@@ -48,7 +48,7 @@ int main() {
     }
 
     cout << v2.front() << endl;
-    v2.pop();
+    v2.pop_back();
     cout << v2.getReserved_size() << endl;
     cout << v2.getSize() << endl;
 
